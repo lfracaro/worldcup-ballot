@@ -1,6 +1,7 @@
 "use client";
 
 import useSWR from "swr";
+import { PARTICIPANTS } from "@/lib/ballot";
 
 interface TeamStanding {
   name: string;
@@ -20,6 +21,10 @@ interface GroupStanding {
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
+
+const ownerMap = new Map<string, string>(
+  PARTICIPANTS.flatMap((p) => p.teams.map((t) => [t, p.name]))
+);
 
 function SkeletonGroup() {
   return (
@@ -66,8 +71,9 @@ function GroupTable({ group, teams }: GroupStanding) {
                 key={team.name}
                 className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}
               >
-                <td className="px-2 py-1.5 font-medium text-gray-800 whitespace-nowrap">
-                  {team.name}
+                <td className="px-2 py-1.5 whitespace-nowrap">
+                  <span className="font-medium text-gray-800 block">{team.name}</span>
+                  <span className="text-gray-400 text-xs">{ownerMap.get(team.name)}</span>
                 </td>
                 <td className="px-1 py-1.5 text-center text-gray-600">{team.played}</td>
                 <td className="px-1 py-1.5 text-center text-gray-600">{team.won}</td>

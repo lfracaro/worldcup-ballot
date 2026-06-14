@@ -61,7 +61,7 @@ export default function TopPlayers({ oddsData }: Props) {
               <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold w-12 sm:w-16">Rank</th>
               <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Name</th>
               <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Teams</th>
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold whitespace-nowrap">Combined Odds</th>
+              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold whitespace-nowrap">Comb. Odds</th>
             </tr>
           </thead>
           <tbody>

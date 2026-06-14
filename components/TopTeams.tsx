@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { decimalToFractional } from "@/lib/odds";
+import { PARTICIPANTS } from "@/lib/ballot";
 
 interface TeamOdds {
   team: string;
@@ -23,6 +24,10 @@ function SkeletonRow({ index }: { index: number }) {
     </tr>
   );
 }
+
+const ownerMap = new Map<string, string>(
+  PARTICIPANTS.flatMap((p) => p.teams.map((t) => [t, p.name]))
+);
 
 export default function TopTeams({ oddsData }: Props) {
   console.log("[TopTeams] raw oddsData:", oddsData);
@@ -60,7 +65,10 @@ export default function TopTeams({ oddsData }: Props) {
                   className={clsx(i % 2 === 0 ? "bg-white" : "bg-green-50")}
                 >
                   <td className="px-3 sm:px-4 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
-                  <td className="px-3 sm:px-4 py-2 sm:py-3 font-semibold text-gray-800 whitespace-nowrap">{entry.team}</td>
+                  <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
+                  <span className="font-semibold text-gray-800 block">{entry.team}</span>
+                  <span className="text-gray-400 text-xs">{ownerMap.get(entry.team)}</span>
+                </td>
                   <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-700 whitespace-nowrap">{decimalToFractional(entry.odds)}</td>
                 </tr>
               ))}
