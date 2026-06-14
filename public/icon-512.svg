@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <clipPath id="ball512"><circle cx="256" cy="256" r="160"/></clipPath>
+  </defs>
+
+  <!-- App icon background -->
+  <rect width="512" height="512" rx="85" fill="#0f172a"/>
+
+  <!-- White ball -->
+  <circle cx="256" cy="256" r="160" fill="white"/>
+
+  <!-- Classic football (Telstar) patch pattern, clipped to ball -->
+  <!-- Same proportional layout as 192px version (×512/192 ≈ ×2.667) -->
+  <g clip-path="url(#ball512)" fill="#1e293b">
+    <!-- Central pentagon -->
+    <polygon points="256,197.3 312,237.3 290.7,304 221.3,304 200,237.3"/>
+
+    <!-- Top outer pentagon -->
+    <polygon points="256,165.3 220.3,139.5 234.1,97.9 277.9,97.9 291.7,139.5"/>
+
+    <!-- Top-right outer pentagon -->
+    <polygon points="341.9,228 355.7,186 399.7,186 413.3,228 377.9,253.9"/>
+
+    <!-- Bottom-right outer pentagon -->
+    <polygon points="309.3,329.3 353.1,329.3 366.7,371.2 331.2,397 293.1,371.2"/>
+
+    <!-- Bottom-left outer pentagon -->
+    <polygon points="202.7,329.3 216.3,371.2 180.8,397 145.3,371.2 158.9,329.3"/>
+
+    <!-- Top-left outer pentagon -->
+    <polygon points="169.6,228 134.1,253.9 98.7,228 112.3,186 156.3,186"/>
+  </g>
+
+  <!-- Ball outline -->
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#cbd5e1" stroke-width="4"/>
+</svg>

@@ -55,7 +55,7 @@ export default function TopPlayers({ oddsData }: Props) {
   return (
     <div className="rounded-xl overflow-hidden shadow border border-gray-200">
       <div className="overflow-x-auto">
-        <table className="w-full text-xs sm:text-sm text-left">
+        <table className="w-full min-w-max text-xs sm:text-sm text-left">
           <thead>
             <tr className="bg-blue-900 text-white">
               <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold w-12 sm:w-16">Rank</th>

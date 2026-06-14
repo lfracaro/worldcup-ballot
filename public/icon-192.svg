@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <defs>
+    <clipPath id="ball192"><circle cx="96" cy="96" r="60"/></clipPath>
+  </defs>
+
+  <!-- App icon background -->
+  <rect width="192" height="192" rx="32" fill="#0f172a"/>
+
+  <!-- White ball -->
+  <circle cx="96" cy="96" r="60" fill="white"/>
+
+  <!-- Classic football (Telstar) patch pattern, clipped to ball -->
+  <!-- 1 central pentagon + 5 outer pentagons at 72° intervals -->
+  <g clip-path="url(#ball192)" fill="#1e293b">
+    <!-- Central pentagon (r=22, first vertex pointing up) -->
+    <polygon points="96,74 117,89 109,114 83,114 75,89"/>
+
+    <!-- Top outer pentagon (k=0, center at 96,48) -->
+    <polygon points="96,62 82.7,52.3 87.8,36.7 104.2,36.7 109.3,52.3"/>
+
+    <!-- Top-right outer pentagon (k=1, center at 141.7,81.2) -->
+    <polygon points="128.3,85.5 133.4,69.8 149.9,69.8 155,85.5 141.7,95.2"/>
+
+    <!-- Bottom-right outer pentagon (k=2, center at 124.2,134.8) -->
+    <polygon points="116,123.5 132.4,123.5 137.5,139.2 124.2,148.8 110.9,139.2"/>
+
+    <!-- Bottom-left outer pentagon (k=3, center at 67.8,134.8) -->
+    <polygon points="76,123.5 81.1,139.2 67.8,148.8 54.5,139.2 59.6,123.5"/>
+
+    <!-- Top-left outer pentagon (k=4, center at 50.3,81.2) -->
+    <polygon points="63.7,85.5 50.3,95.2 37,85.5 42.1,69.8 58.6,69.8"/>
+  </g>
+
+  <!-- Ball outline -->
+  <circle cx="96" cy="96" r="60" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
+</svg>

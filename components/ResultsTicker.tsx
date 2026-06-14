@@ -7,56 +7,37 @@ interface MatchResult {
   awayTeam: string;
   homeScore: number;
   awayScore: number;
-  status: "FINISHED" | "IN_PLAY" | "PAUSED";
-  minute?: number;
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
-
-function MatchChip({ match }: { match: MatchResult }) {
-  const isLive = match.status === "IN_PLAY" || match.status === "PAUSED";
-  return (
-    <span className="inline-flex items-center gap-2 px-6 whitespace-nowrap">
-      {isLive && (
-        <span className="text-xs font-bold text-red-400 animate-pulse uppercase">
-          {match.minute ? `${match.minute}'` : "Live"}
-        </span>
-      )}
-      <span className="font-semibold text-white">{match.homeTeam}</span>
-      <span className="tabular-nums font-bold text-yellow-300 text-base">
-        {match.homeScore} – {match.awayScore}
-      </span>
-      <span className="font-semibold text-white">{match.awayTeam}</span>
-      <span className="text-slate-600 select-none mx-2">|</span>
-    </span>
-  );
-}
 
 export default function ResultsTicker() {
   const { data: matches } = useSWR<MatchResult[]>("/api/results", fetcher, {
     refreshInterval: 60_000,
   });
 
-  const hasResults = Array.isArray(matches) && matches.length > 0;
-  const noKey = Array.isArray(matches) && matches.length === 0;
+  if (!Array.isArray(matches) || matches.length === 0) return null;
+
+  // Duplicate the list so the marquee loops seamlessly
+  const items = [...matches, ...matches];
 
   return (
-    <div className="bg-slate-800 border-b-2 border-yellow-500 text-sm overflow-hidden h-10 flex items-center">
-      {noKey && (
-        <p className="px-6 text-yellow-400 text-xs font-semibold tracking-wide">
-          ⚽ RESULTS TICKER — Add FOOTBALL_DATA_API_KEY to .env.local to enable live scores
-        </p>
-      )}
-      {!matches && (
-        <p className="px-6 text-slate-400 text-xs">Loading results…</p>
-      )}
-      {hasResults && (
-        <div className="flex animate-marquee">
-          {[...matches, ...matches].map((m, i) => (
-            <MatchChip key={i} match={m} />
-          ))}
-        </div>
-      )}
+    <div className="bg-yellow-400 border-b-2 border-yellow-600 h-9 flex items-center overflow-hidden">
+      <span className="shrink-0 bg-yellow-600 text-white text-xs font-bold uppercase tracking-widest px-3 h-full flex items-center z-10">
+        ⚽ Results
+      </span>
+      <div className="flex animate-marquee">
+        {items.map((m, i) => (
+          <span key={i} className="inline-flex items-center whitespace-nowrap px-4 text-xs sm:text-sm font-semibold text-yellow-950">
+            {m.homeTeam}
+            <span className="mx-2 font-bold tabular-nums text-yellow-800">
+              {m.homeScore}–{m.awayScore}
+            </span>
+            {m.awayTeam}
+            <span className="ml-4 text-yellow-600 select-none">|</span>
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
