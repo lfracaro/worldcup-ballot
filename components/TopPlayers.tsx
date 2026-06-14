@@ -61,7 +61,7 @@ export default function TopPlayers({ oddsData }: Props) {
               <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold w-12 sm:w-16">Rank</th>
               <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Name</th>
               <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Teams</th>
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold whitespace-nowrap">Odds</th>
+              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold text-right w-24">Odds</th>
             </tr>
           </thead>
           <tbody>
@@ -72,8 +72,8 @@ export default function TopPlayers({ oddsData }: Props) {
               >
                 <td className="px-3 sm:px-4 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
                 <td className="px-3 sm:px-4 py-2 sm:py-3 font-semibold text-gray-800 whitespace-nowrap">{p.name}</td>
-                <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-700 whitespace-nowrap">{p.teams.join(" & ")}</td>
-                <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-700 whitespace-nowrap">
+                <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-400 whitespace-nowrap">{p.teams.join(" & ")}</td>
+                <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-700 whitespace-nowrap text-right">
                   {decimalToFractional(p.combined as number)}
                 </td>
               </tr>
