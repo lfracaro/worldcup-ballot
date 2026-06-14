@@ -57,8 +57,8 @@ export default function TopPlayers({ oddsData }: Props) {
         <table className="w-full table-fixed text-xs sm:text-sm text-left">
           <thead>
             <tr className="bg-blue-900 text-white">
-              <th className="px-3 py-2 sm:py-3 font-semibold w-10">Rank</th>
-              <th className="px-3 py-2 sm:py-3 font-semibold">Name</th>
+              <th className="px-2 py-2 sm:py-3 font-semibold w-8 text-center">Rank</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold w-28">Name</th>
               <th className="px-3 py-2 sm:py-3 font-semibold">Teams</th>
               <th className="px-3 py-2 sm:py-3 font-semibold text-right w-16">Odds</th>
             </tr>
@@ -69,7 +69,7 @@ export default function TopPlayers({ oddsData }: Props) {
                 key={p.name}
                 className={clsx(i % 2 === 0 ? "bg-white" : "bg-blue-50")}
               >
-                <td className="px-3 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
+                <td className="px-2 py-2 sm:py-3 font-medium text-gray-500 text-center">{i + 1}</td>
                 <td className="px-3 py-2 sm:py-3 font-semibold text-gray-800 truncate">{p.name}</td>
                 <td className="px-3 py-2 sm:py-3 text-gray-400 truncate">{p.teams.join(" & ")}</td>
                 <td className="px-3 py-2 sm:py-3 text-gray-700 text-right">

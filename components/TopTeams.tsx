@@ -40,8 +40,8 @@ export default function TopTeams({ oddsData }: Props) {
         <table className="w-full table-fixed text-xs sm:text-sm text-left">
           <thead>
             <tr className="bg-green-900 text-white">
-              <th className="px-3 py-2 sm:py-3 font-semibold w-10">Rank</th>
-              <th className="px-3 py-2 sm:py-3 font-semibold">Team</th>
+              <th className="px-2 py-2 sm:py-3 font-semibold w-8 text-center">Rank</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold w-28">Team</th>
               <th className="px-3 py-2 sm:py-3 font-semibold">Name</th>
               <th className="px-3 py-2 sm:py-3 font-semibold text-right w-16">Odds</th>
             </tr>
@@ -64,7 +64,7 @@ export default function TopTeams({ oddsData }: Props) {
                   key={entry.team}
                   className={clsx(i % 2 === 0 ? "bg-white" : "bg-green-50")}
                 >
-                  <td className="px-3 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
+                  <td className="px-2 py-2 sm:py-3 font-medium text-gray-500 text-center">{i + 1}</td>
                   <td className="px-3 py-2 sm:py-3 font-semibold text-gray-800 truncate">{entry.team}</td>
                   <td className="px-3 py-2 sm:py-3 text-gray-400 truncate">{ownerMap.get(entry.team)}</td>
                   <td className="px-3 py-2 sm:py-3 text-gray-700 text-right">{decimalToFractional(entry.odds)}</td>
