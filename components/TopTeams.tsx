@@ -66,8 +66,8 @@ export default function TopTeams({ oddsData }: Props) {
                 >
                   <td className="px-3 sm:px-4 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
                   <td className="px-3 sm:px-4 py-2 sm:py-3 whitespace-nowrap">
-                  <span className="font-semibold text-gray-800 block">{entry.team}</span>
-                  <span className="text-gray-400 text-xs">{ownerMap.get(entry.team)}</span>
+                  <span className="font-semibold text-gray-800">{entry.team}</span>
+                  <span className="text-gray-400 font-normal"> ({ownerMap.get(entry.team)})</span>
                 </td>
                   <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-700 whitespace-nowrap">{decimalToFractional(entry.odds)}</td>
                 </tr>
