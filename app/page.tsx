@@ -4,7 +4,6 @@ import useSWR from "swr";
 import TopTeams from "@/components/TopTeams";
 import TopPlayers from "@/components/TopPlayers";
 import GroupStandings from "@/components/GroupStandings";
-import ResultsTicker from "@/components/ResultsTicker";
 
 interface TeamOdds {
   team: string;
@@ -28,7 +27,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white">
-      <ResultsTicker />
       {/* Header */}
       <header className="border-b border-slate-700 px-6 py-8">
         <div className="max-w-7xl mx-auto">
