@@ -54,31 +54,33 @@ export default function TopPlayers({ oddsData }: Props) {
 
   return (
     <div className="rounded-xl overflow-hidden shadow border border-gray-200">
-      <table className="w-full text-sm text-left">
-        <thead>
-          <tr className="bg-blue-900 text-white">
-            <th className="px-4 py-3 font-semibold w-16">Rank</th>
-            <th className="px-4 py-3 font-semibold">Name</th>
-            <th className="px-4 py-3 font-semibold">Teams</th>
-            <th className="px-4 py-3 font-semibold">Combined Odds</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ranked.slice(0, 5).map((p, i) => (
-            <tr
-              key={p.name}
-              className={clsx(i % 2 === 0 ? "bg-white" : "bg-blue-50")}
-            >
-              <td className="px-4 py-3 font-medium text-gray-500">{i + 1}</td>
-              <td className="px-4 py-3 font-semibold text-gray-800">{p.name}</td>
-              <td className="px-4 py-3 text-gray-700">{p.teams.join(" & ")}</td>
-              <td className="px-4 py-3 text-gray-700">
-                {decimalToFractional(p.combined as number)}
-              </td>
+      <div className="overflow-x-auto">
+        <table className="w-full text-xs sm:text-sm text-left">
+          <thead>
+            <tr className="bg-blue-900 text-white">
+              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold w-12 sm:w-16">Rank</th>
+              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Name</th>
+              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Teams</th>
+              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold whitespace-nowrap">Combined Odds</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {ranked.slice(0, 5).map((p, i) => (
+              <tr
+                key={p.name}
+                className={clsx(i % 2 === 0 ? "bg-white" : "bg-blue-50")}
+              >
+                <td className="px-3 sm:px-4 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
+                <td className="px-3 sm:px-4 py-2 sm:py-3 font-semibold text-gray-800 whitespace-nowrap">{p.name}</td>
+                <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-700 whitespace-nowrap">{p.teams.join(" & ")}</td>
+                <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-700 whitespace-nowrap">
+                  {decimalToFractional(p.combined as number)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

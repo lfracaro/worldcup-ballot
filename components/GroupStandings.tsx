@@ -40,46 +40,48 @@ function SkeletonGroup() {
 function GroupTable({ group, teams }: GroupStanding) {
   return (
     <div className="rounded-xl overflow-hidden shadow border border-gray-200">
-      <table className="w-full text-xs text-left">
-        <thead>
-          <tr className="bg-gray-800 text-white">
-            <th className="px-3 py-2 font-semibold" colSpan={9}>
-              {group.startsWith("Group ") ? group : `Group ${group}`}
-            </th>
-          </tr>
-          <tr className="bg-gray-700 text-gray-200 text-center">
-            <th className="px-3 py-1 font-medium text-left">Team</th>
-            <th className="px-1 py-1 font-medium">P</th>
-            <th className="px-1 py-1 font-medium">W</th>
-            <th className="px-1 py-1 font-medium">D</th>
-            <th className="px-1 py-1 font-medium">L</th>
-            <th className="px-1 py-1 font-medium">GF</th>
-            <th className="px-1 py-1 font-medium">GA</th>
-            <th className="px-1 py-1 font-medium">GD</th>
-            <th className="px-1 py-1 font-medium">Pts</th>
-          </tr>
-        </thead>
-        <tbody>
-          {teams.map((team, i) => (
-            <tr
-              key={team.name}
-              className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}
-            >
-              <td className="px-3 py-2 font-medium text-gray-800 whitespace-nowrap">
-                {team.name}
-              </td>
-              <td className="px-1 py-2 text-center text-gray-600">{team.played}</td>
-              <td className="px-1 py-2 text-center text-gray-600">{team.won}</td>
-              <td className="px-1 py-2 text-center text-gray-600">{team.drawn}</td>
-              <td className="px-1 py-2 text-center text-gray-600">{team.lost}</td>
-              <td className="px-1 py-2 text-center text-gray-600">{team.goalsFor}</td>
-              <td className="px-1 py-2 text-center text-gray-600">{team.goalsAgainst}</td>
-              <td className="px-1 py-2 text-center text-gray-600">{team.goalDifference}</td>
-              <td className="px-1 py-2 text-center font-semibold text-gray-800">{team.points}</td>
+      <div className="overflow-x-auto">
+        <table className="w-full text-xs text-left">
+          <thead>
+            <tr className="bg-gray-800 text-white">
+              <th className="px-3 py-2 font-semibold" colSpan={9}>
+                {group.startsWith("Group ") ? group : `Group ${group}`}
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+            <tr className="bg-gray-700 text-gray-200 text-center">
+              <th className="px-2 py-1 font-medium text-left">Team</th>
+              <th className="px-1 py-1 font-medium">P</th>
+              <th className="px-1 py-1 font-medium">W</th>
+              <th className="px-1 py-1 font-medium">D</th>
+              <th className="px-1 py-1 font-medium">L</th>
+              <th className="px-1 py-1 font-medium">GF</th>
+              <th className="px-1 py-1 font-medium">GA</th>
+              <th className="px-1 py-1 font-medium">GD</th>
+              <th className="px-1 py-1 font-medium">Pts</th>
+            </tr>
+          </thead>
+          <tbody>
+            {teams.map((team, i) => (
+              <tr
+                key={team.name}
+                className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}
+              >
+                <td className="px-2 py-1.5 font-medium text-gray-800 whitespace-nowrap">
+                  {team.name}
+                </td>
+                <td className="px-1 py-1.5 text-center text-gray-600">{team.played}</td>
+                <td className="px-1 py-1.5 text-center text-gray-600">{team.won}</td>
+                <td className="px-1 py-1.5 text-center text-gray-600">{team.drawn}</td>
+                <td className="px-1 py-1.5 text-center text-gray-600">{team.lost}</td>
+                <td className="px-1 py-1.5 text-center text-gray-600">{team.goalsFor}</td>
+                <td className="px-1 py-1.5 text-center text-gray-600">{team.goalsAgainst}</td>
+                <td className="px-1 py-1.5 text-center text-gray-600">{team.goalDifference}</td>
+                <td className="px-1 py-1.5 text-center font-semibold text-gray-800">{team.points}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -91,7 +93,7 @@ export default function GroupStandings() {
   );
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
       {isLoading &&
         [...Array(12)].map((_, i) => <SkeletonGroup key={i} />)}
 
