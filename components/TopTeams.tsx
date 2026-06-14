@@ -37,14 +37,13 @@ export default function TopTeams({ oddsData }: Props) {
 
   return (
     <div className="rounded-xl overflow-hidden shadow border border-gray-200">
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-max text-xs sm:text-sm text-left">
+        <table className="w-full table-fixed text-xs sm:text-sm text-left">
           <thead>
             <tr className="bg-green-900 text-white">
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold w-12 sm:w-16">Rank</th>
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Team</th>
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Name</th>
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold text-right w-24">Odds</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold w-10">Rank</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold">Team</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold">Name</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold text-right w-20">Odds</th>
             </tr>
           </thead>
           <tbody>
@@ -65,15 +64,14 @@ export default function TopTeams({ oddsData }: Props) {
                   key={entry.team}
                   className={clsx(i % 2 === 0 ? "bg-white" : "bg-green-50")}
                 >
-                  <td className="px-3 sm:px-4 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
-                  <td className="px-3 sm:px-4 py-2 sm:py-3 font-semibold text-gray-800 whitespace-nowrap">{entry.team}</td>
-                  <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-400 whitespace-nowrap">{ownerMap.get(entry.team)}</td>
-                  <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-700 whitespace-nowrap text-right">{decimalToFractional(entry.odds)}</td>
+                  <td className="px-3 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
+                  <td className="px-3 py-2 sm:py-3 font-semibold text-gray-800 truncate">{entry.team}</td>
+                  <td className="px-3 py-2 sm:py-3 text-gray-400 truncate">{ownerMap.get(entry.team)}</td>
+                  <td className="px-3 py-2 sm:py-3 text-gray-700 text-right">{decimalToFractional(entry.odds)}</td>
                 </tr>
               ))}
           </tbody>
         </table>
-      </div>
     </div>
   );
 }

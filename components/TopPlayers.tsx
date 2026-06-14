@@ -54,14 +54,13 @@ export default function TopPlayers({ oddsData }: Props) {
 
   return (
     <div className="rounded-xl overflow-hidden shadow border border-gray-200">
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-max text-xs sm:text-sm text-left">
+        <table className="w-full table-fixed text-xs sm:text-sm text-left">
           <thead>
             <tr className="bg-blue-900 text-white">
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold w-12 sm:w-16">Rank</th>
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Name</th>
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold">Teams</th>
-              <th className="px-3 sm:px-4 py-2 sm:py-3 font-semibold text-right w-24">Odds</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold w-10">Rank</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold">Name</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold">Teams</th>
+              <th className="px-3 py-2 sm:py-3 font-semibold text-right w-20">Odds</th>
             </tr>
           </thead>
           <tbody>
@@ -70,17 +69,16 @@ export default function TopPlayers({ oddsData }: Props) {
                 key={p.name}
                 className={clsx(i % 2 === 0 ? "bg-white" : "bg-blue-50")}
               >
-                <td className="px-3 sm:px-4 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
-                <td className="px-3 sm:px-4 py-2 sm:py-3 font-semibold text-gray-800 whitespace-nowrap">{p.name}</td>
-                <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-400 whitespace-nowrap">{p.teams.join(" & ")}</td>
-                <td className="px-3 sm:px-4 py-2 sm:py-3 text-gray-700 whitespace-nowrap text-right">
+                <td className="px-3 py-2 sm:py-3 font-medium text-gray-500">{i + 1}</td>
+                <td className="px-3 py-2 sm:py-3 font-semibold text-gray-800 truncate">{p.name}</td>
+                <td className="px-3 py-2 sm:py-3 text-gray-400 truncate">{p.teams.join(" & ")}</td>
+                <td className="px-3 py-2 sm:py-3 text-gray-700 text-right">
                   {decimalToFractional(p.combined as number)}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
     </div>
   );
 }
