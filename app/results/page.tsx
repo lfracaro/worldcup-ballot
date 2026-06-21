@@ -71,7 +71,7 @@ export default async function ResultsPage() {
     }
   }
 
-  const topScorers = [...scorerMap.entries()]
+  const topScorers = Array.from(scorerMap.entries())
     .map(([key, val]) => ({ name: key.split("|||")[0], ...val }))
     .sort((a, b) => b.goals - a.goals);
 
@@ -107,7 +107,7 @@ export default async function ResultsPage() {
           <p className="text-slate-400 text-center py-12">No completed matches yet.</p>
         )}
 
-        {[...grouped.entries()].map(([groupName, matches]) => (
+        {Array.from(grouped.entries()).map(([groupName, matches]) => (
           <section key={groupName}>
             <h2 className="text-base font-semibold text-slate-300 uppercase tracking-widest mb-4">
               {groupName}
