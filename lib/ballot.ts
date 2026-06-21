@@ -25,6 +25,10 @@ export const PARTICIPANTS = [
   { name: "Thav", teams: ["Iraq", "Ghana"] },
 ];
 
+// Teams that have been eliminated — update this list as the tournament progresses.
+// Once both of a participant's teams appear here they are removed from the rankings.
+export const ELIMINATED: string[] = [];
+
 export const GROUPS: Record<string, string[]> = {
   A: ["Mexico", "South Africa", "South Korea", "Czechia"],
   B: ["Canada", "Bosnia", "Qatar", "Switzerland"],

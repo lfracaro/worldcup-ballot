@@ -20,6 +20,7 @@ const config: Config = {
       },
       animation: {
         marquee: "marquee 30s linear infinite",
+        "marquee-slow": "marquee 60s linear infinite",
       },
     },
   },
