@@ -2,6 +2,7 @@
 
 import useSWR from "swr";
 import { PARTICIPANTS } from "@/lib/ballot";
+import clsx from "clsx";
 
 interface TeamStanding {
   name: string;
@@ -42,7 +43,7 @@ function SkeletonGroup() {
   );
 }
 
-function GroupTable({ group, teams }: GroupStanding) {
+function GroupTable({ group, teams, qualified }: GroupStanding & { qualified: Set<string> }) {
   return (
     <div className="rounded-xl overflow-hidden shadow border border-gray-200">
       <div className="overflow-x-auto">
@@ -66,25 +67,37 @@ function GroupTable({ group, teams }: GroupStanding) {
             </tr>
           </thead>
           <tbody>
-            {teams.map((team, i) => (
-              <tr
-                key={team.name}
-                className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}
-              >
-                <td className="px-2 py-1.5 whitespace-nowrap">
-                  <span className="font-medium text-gray-800 block">{team.name}</span>
-                  <span className="text-gray-400 text-xs">{ownerMap.get(team.name)}</span>
-                </td>
-                <td className="px-1 py-1.5 text-center text-gray-600">{team.played}</td>
-                <td className="px-1 py-1.5 text-center text-gray-600">{team.won}</td>
-                <td className="px-1 py-1.5 text-center text-gray-600">{team.drawn}</td>
-                <td className="px-1 py-1.5 text-center text-gray-600">{team.lost}</td>
-                <td className="px-1 py-1.5 text-center text-gray-600">{team.goalsFor}</td>
-                <td className="px-1 py-1.5 text-center text-gray-600">{team.goalsAgainst}</td>
-                <td className="px-1 py-1.5 text-center text-gray-600">{team.goalDifference}</td>
-                <td className="px-1 py-1.5 text-center font-semibold text-gray-800">{team.points}</td>
-              </tr>
-            ))}
+            {teams.map((team, i) => {
+              const isQualified = qualified.has(team.name);
+              return (
+                <tr
+                  key={team.name}
+                  className={clsx(
+                    isQualified
+                      ? "bg-green-50 border-l-4 border-green-400"
+                      : i % 2 === 0
+                      ? "bg-white"
+                      : "bg-gray-50"
+                  )}
+                >
+                  <td className="px-2 py-1.5 whitespace-nowrap">
+                    <span className={clsx("font-medium block", isQualified ? "text-green-800" : "text-gray-800")}>
+                      {team.name}
+                      {isQualified && <span className="ml-1 text-green-500 text-[10px] font-bold">✓ QF</span>}
+                    </span>
+                    <span className="text-gray-400 text-xs">{ownerMap.get(team.name)}</span>
+                  </td>
+                  <td className="px-1 py-1.5 text-center text-gray-600">{team.played}</td>
+                  <td className="px-1 py-1.5 text-center text-gray-600">{team.won}</td>
+                  <td className="px-1 py-1.5 text-center text-gray-600">{team.drawn}</td>
+                  <td className="px-1 py-1.5 text-center text-gray-600">{team.lost}</td>
+                  <td className="px-1 py-1.5 text-center text-gray-600">{team.goalsFor}</td>
+                  <td className="px-1 py-1.5 text-center text-gray-600">{team.goalsAgainst}</td>
+                  <td className="px-1 py-1.5 text-center text-gray-600">{team.goalDifference}</td>
+                  <td className="px-1 py-1.5 text-center font-semibold text-gray-800">{team.points}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
@@ -93,10 +106,23 @@ function GroupTable({ group, teams }: GroupStanding) {
 }
 
 export default function GroupStandings() {
-  const { data, error, isLoading } = useSWR<GroupStanding[]>(
-    "/api/standings",
-    fetcher
-  );
+  const { data, error, isLoading } = useSWR<GroupStanding[]>("/api/standings", fetcher, {
+    refreshInterval: 60_000,
+  });
+
+  // A team has qualified (top 2) only once all 3 group games are played.
+  // We identify this by checking position 0–1 where played === 3.
+  const qualified = new Set<string>();
+  if (data) {
+    for (const group of data) {
+      const allDone = group.teams.every((t) => t.played === 3);
+      if (allDone) {
+        // Top 2 are definitively through
+        if (group.teams[0]) qualified.add(group.teams[0].name);
+        if (group.teams[1]) qualified.add(group.teams[1].name);
+      }
+    }
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
@@ -111,7 +137,7 @@ export default function GroupStandings() {
 
       {data &&
         data.map((g) => (
-          <GroupTable key={g.group} group={g.group} teams={g.teams} />
+          <GroupTable key={g.group} group={g.group} teams={g.teams} qualified={qualified} />
         ))}
     </div>
   );

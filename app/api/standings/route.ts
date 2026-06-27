@@ -127,7 +127,7 @@ function finaliseAndSort(map: Record<string, TeamStanding>): GroupStanding[] {
 async function fromOpenfootball(): Promise<GroupStanding[] | null> {
   const res = await fetch(
     "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json",
-    { next: { revalidate: 60 } }
+    { cache: "no-store" }
   );
   if (!res.ok) {
     console.error(`[standings] openfootball fetch failed — status: ${res.status}`);
@@ -141,6 +141,8 @@ async function fromOpenfootball(): Promise<GroupStanding[] | null> {
   let completedCount = 0;
 
   for (const match of matches) {
+    // Only group-stage matches (have a group field, not a round-only field)
+    if (!match.group) continue;
     // A match is complete when score.ft is present
     const ft: [number, number] | undefined = match.score?.ft;
     if (!ft) continue;

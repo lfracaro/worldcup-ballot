@@ -5,6 +5,7 @@ import Link from "next/link";
 import TopTeams from "@/components/TopTeams";
 import TopPlayers from "@/components/TopPlayers";
 import GroupStandings from "@/components/GroupStandings";
+import KnockoutResults from "@/components/KnockoutResults";
 import ResultsTicker from "@/components/ResultsTicker";
 
 interface TeamOdds {
@@ -66,6 +67,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Knockout stage results — hidden until matches have scores */}
+        <KnockoutResults />
 
         {/* Group standings */}
         <section>
