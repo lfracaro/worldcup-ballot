@@ -7,7 +7,7 @@ interface KOMatch {
   date: string;
   team1: string;
   team2: string;
-  score: [number, number];
+  score: [number, number] | null;
 }
 
 interface KOData {
@@ -78,21 +78,27 @@ export default function KnockoutResults() {
                     {formatDate(m.date)}
                   </span>
                   <span className="font-semibold text-white text-right truncate">{m.team1}</span>
-                  <span className="font-bold tabular-nums text-yellow-400 text-xs sm:text-sm text-center whitespace-nowrap">
-                    {m.score[0]}–{m.score[1]}
-                  </span>
+                  {m.score ? (
+                    <span className="font-bold tabular-nums text-yellow-400 text-xs sm:text-sm text-center whitespace-nowrap">
+                      {m.score[0]}–{m.score[1]}
+                    </span>
+                  ) : (
+                    <span className="text-slate-500 text-xs text-center whitespace-nowrap">vs</span>
+                  )}
                   <span className="font-semibold text-white truncate">{m.team2}</span>
                   <div className="text-right">
-                    <a
-                      href={highlightsUrl(m.team1, m.team2)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center rounded bg-red-700 text-white font-semibold hover:bg-red-600 transition-colors text-xs px-1.5 py-1 sm:px-2.5"
-                      title={`${m.team1} v ${m.team2} highlights`}
-                    >
-                      <span className="sm:hidden">▶</span>
-                      <span className="hidden sm:inline">Highlights</span>
-                    </a>
+                    {m.score && (
+                      <a
+                        href={highlightsUrl(m.team1, m.team2)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center rounded bg-red-700 text-white font-semibold hover:bg-red-600 transition-colors text-xs px-1.5 py-1 sm:px-2.5"
+                        title={`${m.team1} v ${m.team2} highlights`}
+                      >
+                        <span className="sm:hidden">▶</span>
+                        <span className="hidden sm:inline">Highlights</span>
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}

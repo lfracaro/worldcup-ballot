@@ -49,9 +49,9 @@ export async function GET() {
 
     console.log("[knockout] raw KO matches:", JSON.stringify(koMatches, null, 2));
 
-    // Scored KO matches where both teams are real names (not bracket placeholders)
+    // All confirmed KO matches (both teams known), scored or upcoming
     const results: KOMatch[] = koMatches
-      .filter((m) => isRealTeam(m.team1) && isRealTeam(m.team2) && Array.isArray(m.score?.ft))
+      .filter((m) => isRealTeam(m.team1) && isRealTeam(m.team2))
       .sort(
         (a, b) =>
           ROUND_ORDER.indexOf(a.round!) - ROUND_ORDER.indexOf(b.round!) ||
@@ -62,7 +62,7 @@ export async function GET() {
         date: m.date,
         team1: m.team1,
         team2: m.team2,
-        score: m.score!.ft,
+        score: Array.isArray(m.score?.ft) ? m.score!.ft : null,
       }));
 
     return NextResponse.json({ results });
