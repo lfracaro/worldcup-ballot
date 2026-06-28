@@ -3,10 +3,15 @@ import { NextResponse } from "next/server";
 const OPENFOOTBALL_URL =
   "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
 
-// Real team name = starts with an uppercase letter followed by a lowercase letter.
-// Placeholders look like "1A", "3C/D/F", "2I", "Winner Group A" etc.
+// Detect bracket placeholders like "1A", "3C/D/F/G/H", "2I", "Winner Group A".
+// We reject rather than match, so abbreviations like "USA" and "DR Congo" pass.
 function isRealTeam(name: string): boolean {
-  return /^[A-Z][a-z]/.test(name);
+  if (!name) return false;
+  if (/^\d/.test(name)) return false;       // starts with digit: "1A", "3C/D/F"
+  if (name.includes("/")) return false;      // slash-separated bracket slots
+  if (/\bgroup\b/i.test(name)) return false; // "Winner Group A"
+  if (/^[WL]\d+$/.test(name)) return false;  // "W73", "L101" (match winner/loser refs)
+  return /^[A-Z]/.test(name);               // must start with uppercase
 }
 
 const ROUND_ORDER = [
