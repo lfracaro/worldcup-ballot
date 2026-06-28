@@ -109,20 +109,13 @@ export default function GroupStandings() {
   const { data, error, isLoading } = useSWR<GroupStanding[]>("/api/standings", fetcher, {
     refreshInterval: 60_000,
   });
+  const { data: koData } = useSWR<{ qualified: string[] }>("/api/knockout", fetcher, {
+    refreshInterval: 60_000,
+  });
 
-  // A team has qualified (top 2) only once all 3 group games are played.
-  // We identify this by checking position 0–1 where played === 3.
-  const qualified = new Set<string>();
-  if (data) {
-    for (const group of data) {
-      const allDone = group.teams.every((t) => t.played === 3);
-      if (allDone) {
-        // Top 2 are definitively through
-        if (group.teams[0]) qualified.add(group.teams[0].name);
-        if (group.teams[1]) qualified.add(group.teams[1].name);
-      }
-    }
-  }
+  // Use confirmed Round of 32 participants from the bracket — this correctly
+  // captures top-2 finishers AND the best 3rd-placed teams.
+  const qualified = new Set<string>(koData?.qualified ?? []);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">

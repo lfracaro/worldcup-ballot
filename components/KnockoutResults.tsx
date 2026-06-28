@@ -11,6 +11,7 @@ interface KOMatch {
 }
 
 interface KOData {
+  qualified: string[];
   results: KOMatch[];
 }
 
