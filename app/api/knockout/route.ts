@@ -12,7 +12,7 @@ function isRealTeam(name: string): boolean {
   return /^[A-Z]/.test(name);
 }
 
-export const ROUND_ORDER = [
+const ROUND_ORDER = [
   "Round of 32",
   "Round of 16",
   "Quarter-final",
@@ -79,7 +79,7 @@ export async function GET() {
       if (loser && isRealTeam(loser)) loserOf.set(m.num, loser);
     }
 
-    function resolveTeam(name: string): string | null {
+    const resolveTeam = (name: string): string | null => {
       if (!name) return null;
       if (isRealTeam(name)) return name;
       const wm = name.match(/^W(\d+)$/);
