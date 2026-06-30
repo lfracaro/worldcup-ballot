@@ -6,6 +6,7 @@ import TopTeams from "@/components/TopTeams";
 import TopPlayers from "@/components/TopPlayers";
 import GroupStandings from "@/components/GroupStandings";
 import KnockoutResults from "@/components/KnockoutResults";
+import EliminatedPlayers from "@/components/EliminatedPlayers";
 import ResultsTicker from "@/components/ResultsTicker";
 
 interface TeamOdds {
@@ -66,6 +67,7 @@ export default function Home() {
               <TopPlayers oddsData={oddsData} />
             </div>
           </div>
+          <EliminatedPlayers />
         </section>
 
         {/* Knockout stage results — hidden until matches have scores */}
