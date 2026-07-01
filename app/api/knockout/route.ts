@@ -101,7 +101,7 @@ export async function GET() {
 
     // KnockedOut = teams that have already lost a KO match (resolved names only)
     const knockedOut = new Set<string>();
-    for (const loser of loserOf.values()) knockedOut.add(loser);
+    Array.from(loserOf.values()).forEach(loser => knockedOut.add(loser));
 
     const matches: KOMatch[] = koMatches
       .sort(
