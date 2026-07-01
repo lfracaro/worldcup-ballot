@@ -99,6 +99,10 @@ export async function GET() {
     }
     const qualifiedList = Array.from(qualified).sort();
 
+    // KnockedOut = teams that have already lost a KO match (resolved names only)
+    const knockedOut = new Set<string>();
+    for (const loser of loserOf.values()) knockedOut.add(loser);
+
     const matches: KOMatch[] = koMatches
       .sort(
         (a, b) =>
@@ -120,7 +124,7 @@ export async function GET() {
           : null,
       }));
 
-    return NextResponse.json({ qualified: qualifiedList, matches });
+    return NextResponse.json({ qualified: qualifiedList, knockedOut: Array.from(knockedOut).sort(), matches });
   } catch {
     return NextResponse.json({ qualified: [], matches: [] });
   }

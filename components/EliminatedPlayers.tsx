@@ -24,6 +24,7 @@ function quip(index: number): string {
 
 interface KOData {
   qualified: string[];
+  knockedOut: string[];
 }
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
@@ -36,9 +37,13 @@ export default function EliminatedPlayers() {
   // Only show once the bracket is populated (group stage complete)
   if (!data || data.qualified.length === 0) return null;
 
+  // A team is "out" if it never qualified for the knockouts, or has already lost a KO match
   const qualified = new Set(data.qualified);
+  const knockedOut = new Set(data.knockedOut ?? []);
+  const isOut = (team: string) => !qualified.has(team) || knockedOut.has(team);
+
   const eliminated = PARTICIPANTS.filter(
-    (p) => !qualified.has(p.teams[0]) && !qualified.has(p.teams[1])
+    (p) => isOut(p.teams[0]) && isOut(p.teams[1])
   );
 
   if (eliminated.length === 0) return null;
